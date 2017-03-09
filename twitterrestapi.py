@@ -87,7 +87,8 @@ class TwitterAdManager(object):
             data = self.request_rest(request)
             cursor = data['next_cursor']
             for user in data['users']:
-                followed.append(user['screen_name'])
+                if user['lang'] == 'en':
+                    followed.append(user['screen_name'])
         return followed
 
     def get_following(self, screen_name):
