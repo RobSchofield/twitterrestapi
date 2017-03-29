@@ -12,8 +12,6 @@ Current functions:
 '''
 
 import json
-import hashlib
-import hmac
 import time
 import urllib.request
 import urllib.error
@@ -22,7 +20,7 @@ import oauth2 as oauth
 
 twitter_base_rest = 'https://api.twitter.com/1.1/'
 
-class TwitterAdManager(object):
+class TwitterRestAPI(object):
 
     def __init__(self, consumer_key='', consumer_secret='', access_token='', access_token_secret=''):
         '''
@@ -38,7 +36,7 @@ class TwitterAdManager(object):
 
     def request_rest(self, request, request_type='GET', print_response=False):
         '''
-        Request data from facebook.
+        Request data from the twitter rest API.
         '''
         r_url = '%s%s' % (twitter_base_rest,
                           request)
@@ -110,6 +108,9 @@ class TwitterAdManager(object):
         return following
 
     def search_for_keywords(self, keyword, max_id='0'):
+        '''
+        Searches tweets for a keyword.
+        '''
         tweets = []
         request = 'search/tweets.json?q=%%23%s&count=100&since_id=%s' % (keyword, max_id)
         for tweet in self.request_rest(request)['statuses']:
